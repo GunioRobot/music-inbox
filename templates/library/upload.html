@@ -25,13 +25,13 @@ $(function(){
     filePath = $("#query");
     fileQueued = $("#file_queued");
     message = $("#message");
-    
+
     // if no flash
     // FIXME: is there going to be a no flash state so this has a reason to exist?
     $("#id_file").change(function(){
         filePath.val($(this).val());
     });
-    
+
 });
 
 window.onload = function() {
@@ -39,7 +39,7 @@ window.onload = function() {
         if (fileInQueue) swfu.cancelUpload(fileInQueue.id, false);
         fileInQueue = file;
     }
-    
+
     var fileDialogComplete = function() {
         if (fileInQueue) {
             var fileName = swfu.getFile().name;
@@ -48,7 +48,7 @@ window.onload = function() {
             swfu.startCompressedUpload();
         }
     }
-    
+
     var uploadStart = function() {
         form.addClass("uploading");
         if (message.length == 0) {
@@ -58,7 +58,7 @@ window.onload = function() {
             message.removeClass("error").text('Now uploading...');
         }
     }
-    
+
     var uploadSuccess = function(file, data, response) {
         json = $.parseJSON(data);
         form.removeClass("uploading");
@@ -69,18 +69,18 @@ window.onload = function() {
             message.addClass("error").text(json.errors.file[0]);
         }
     }
-    
+
     swfu = new SWFUpload({
 //        debug: true,
         upload_url: "{% url api_library_upload %}",
         flash_url: "{{MEDIA_URL}}swf/swfupload.swf",
-        
+
         // File Settings
         file_post_name: "file",
         file_queue_limit: "2",
         file_size_limit: "20 MB",
         file_types: "*.xml",
-        
+
         // Button Settings
         button_placeholder_id: "btn_upload",
         button_width: 480,
@@ -88,7 +88,7 @@ window.onload = function() {
         button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
         button_cursor: SWFUpload.CURSOR.HAND,
         button_action: SWFUpload.BUTTON_ACTION.SELECT_FILE,
-        
+
         file_queued_handler: fileQueuedHandler,
         file_dialog_complete_handler: fileDialogComplete,
         upload_start_handler: uploadStart,
@@ -118,7 +118,7 @@ $(document).ready(function() {
 </script>
 <div id="document">
     <div id="topbar"></div>
-    
+
     <h1>Music Inbox <span>Beta</span></h1>
     <div id="input_tabs">
       <ul>
